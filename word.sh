@@ -2,7 +2,7 @@
 logger "word.sh: Running"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-EXE="$SCRIPT_DIR/word.json"
+EXE="$SCRIPT_DIR/words.json"
 
 FILE=$1
 if [ -z $FILE ]
@@ -12,17 +12,16 @@ fi
 COUNT="${2:-1}"
 
 # get json blob
-# TODO update
-logger "meditation.sh: reading file $FILE"
+logger "word.sh: reading file $FILE"
 FILE_TEXT=$(<$FILE)
-JQ_SELECTOR=".[]"
-IFS=$'\n'
-THIS_JSON=($( echo $FILE_TEXT | jq -c "$JQ_SELECTOR" | shuf -n $COUNT ))
+WORDS=($( echo $FILE_TEXT | jq "keys_unsorted | .[]" | shuf -n $COUNT ))
 
-# send notifications
-logger "word.sh: Sending words $THIS_JSON"
-for OUTPUT in ${THIS_JSON[@]}; do
-    notify-send -u critical -t 0 'Word of the Day' "$OUTPUT"
+# PRINT EACH WORD AND ITS DEF
+for WORD in ${WORDS[@]}; do
+    DEF=$( echo $FILE_TEXT | jq -c ".$WORD" )
+    OUTPUT="$WORD  :  $DEF"
+    logger "word.sh: displaying $OUTPUT"
+    notify-send -u critical -t 0 'WORD OF THE DAY' "$OUTPUT"
 done
 
 logger "word.sh: Complete"
