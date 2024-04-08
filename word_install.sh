@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# NOTE: requires jq and notify-send
+
 FILE_PATH=$(realpath $BASH_SOURCE)
 # echo "FILE_PATH = $FILE_PATH"
 DIR_PATH=$(dirname $FILE_PATH)
