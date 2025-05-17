@@ -13,7 +13,7 @@ rm -f $DESKTOP_FILE
 echo "[Desktop Entry]
 Type=Application
 Name=WordOfTheDayScript
-Exec=$DIR_PATH/word_cron.sh
+Exec=$DIR_PATH/word.sh
 OnlyShowIn=GNOME;" > $DESKTOP_FILE
 
 # link to generated startup script.
