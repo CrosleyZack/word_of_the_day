@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-      - name:
-        run: src/word.sh data/words.json 3 false > /temp/out.json
+      - name: create temp directory
+        run: mkdir temp
+      - name: generate words
+        run: src/word.sh data/words.json 3 false > temp/out.json
       - name: Store results
         uses: actions/upload-artifact@v4
         with:
           name: words-of-day
-          path: /temp/out.json
+          path: temp/out.json
