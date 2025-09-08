@@ -12,6 +12,8 @@ fi
 COUNT="${2:-3}"
 NOTIFY="${3:-false}"
 
+echo "NOTE: requires jq and notify-send"
+
 # get json blob
 logger "word.sh: reading file $FILE"
 FILE_TEXT=$(<$FILE)
