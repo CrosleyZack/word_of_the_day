@@ -1,0 +1,19 @@
+name: Generate Words
+description: Get daily word(s)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  daily-words:
+    name: "Generate daily words"
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+      - name:
+        run: src/word.sh data/words.json 3 false > /temp/out.json
+      - name: Store results
+        uses: actions/upload-artifact@v4
+        with:
+          name: words-of-day
+          path: /temp/out.json

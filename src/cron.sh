@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# How often to run. default to every six hours
-HOUR="${1:-6}"
+# How often to run. default to every 12 hours
+HOUR="${1:-12}"
 # What minute to run at, generate randomly if not specified
 MIN=$2
 if [ -z "$MIN" ]
@@ -10,16 +10,13 @@ then
     MIN=$(( ( RANDOM % 58 )  + 1 ))
 fi
 # how many words
-WORDS="${3:-1}"
+WORDS="${3:-3}"
 
 # Get executable to run
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "word_cron SCRIPT_DIR = $SCRIPT_DIR"
 logger "word_cron SCRIPT_DIR = $SCRIPT_DIR"
-EXE="$SCRIPT_DIR/word.sh $SCRIPT_DIR/words.json $WORDS"
-
-# run meditation script _now_
-bash $EXE
+EXE="$SCRIPT_DIR/word.sh $SCRIPT_DIR/../data/words.json $WORDS true"
 
 # Add new cronjob if doesn't already exist
 # sh crontab -e
