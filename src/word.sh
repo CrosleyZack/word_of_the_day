@@ -2,9 +2,8 @@
 logger "word.sh: Running"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-EXE="$SCRIPT_DIR/../words.json"
 
-FILE=${1:-"../data/words.json"}
+FILE=${1:-"$SCRIPT_DIR/../data/words.json"}
 if [ -z $FILE ]
 then
     FILE=$EXE
